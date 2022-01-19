@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
+const NodePolyfillplugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js',
@@ -11,6 +11,7 @@ module.exports = {
 
     output:{
         path: path.join(__dirname, 'dist'),
+        publicPath:'/',
         filename: 'index_bundle.js',
         clean: true
     },
@@ -45,11 +46,12 @@ module.exports = {
                 {from: './src/static' }
             ]
         }),
-
-        new NodePolyfillPlugin()
+        
+        new NodePolyfillplugin()
     ],
 
     devServer:{
-        host:'localhost'
+        historyApiFallback: true,
+        static: {directory: path.resolve(__dirname, 'dist')}
     }
 }
